@@ -1,0 +1,35 @@
+package main
+
+import (
+	"encoding/json"
+	"gobleki/models"
+	"net/http"
+)
+
+var (
+	hpi []models.HPI
+)
+
+func init() {
+	hpi = []models.HPI{models.HPI{
+		Year:     2020,
+		Month:    12,
+		GeoType:  "GeoType",
+		GeoName:  "GeoName",
+		GeoCode:  "GeoCode",
+		IndexNsa: 123.123,
+		IndexSa:  321.321,
+	}}
+}
+
+func getHPI(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("Content-type", "application/json")
+	result, err := json.Marshal(hpi)
+	if err != nil {
+		resp.WriteHeader(http.StatusInternalServerError)
+		resp.Write([]byte(`{"error": "Error marshalling hpi array}`))
+	}
+
+	resp.WriteHeader(http.StatusOK)
+	resp.Write(result)
+}
