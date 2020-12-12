@@ -165,7 +165,7 @@ func handleRequests() {
 	router.HandleFunc("/states", getStates).Methods("GET")
 	router.HandleFunc("/astros", getAstros).Methods("GET")
 
-	log.Fatal(http.ListenAndServe(":8000", router))
+	log.Fatal(http.ListenAndServe(":9999", router))
 }
 
 func main() {
